@@ -1,4 +1,3 @@
 class Env {
-  static String backendBaseUrl =
-      'https://soloatacado.cimobile.conceitotecnologia.inf.br/api';
+  static String backendBaseUrl = 'https://rickandmortyapi.com/api';
 }
