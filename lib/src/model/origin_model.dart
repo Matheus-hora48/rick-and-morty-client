@@ -16,4 +16,6 @@ class OriginModel {
       _$OriginModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$OriginModelToJson(this);
+
+  int get locationId => int.parse(url.split('/').last);
 }

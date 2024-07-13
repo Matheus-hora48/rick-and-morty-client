@@ -6,7 +6,6 @@ part 'episode_model.g.dart';
 class EpisodeModel {
   final int id;
   final String name;
-  
   @JsonKey(name: 'air_date')
   final String airDate;
   final String episode;
@@ -28,4 +27,7 @@ class EpisodeModel {
       _$EpisodeModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$EpisodeModelToJson(this);
+
+  List<int> get characterIds =>
+      characters.map((url) => int.parse(url.split('/').last)).toList();
 }

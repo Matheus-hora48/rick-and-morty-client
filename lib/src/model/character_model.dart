@@ -37,4 +37,7 @@ class CharacterModel {
       _$CharacterModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$CharacterModelToJson(this);
+
+  List<int> get episodeIds =>
+      episode.map((url) => int.parse(url.split('/').last)).toList();
 }
