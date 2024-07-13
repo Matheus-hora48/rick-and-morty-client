@@ -6,6 +6,7 @@ import 'package:rick_and_morty_client/src/core/exceptions/repository_exception.d
 import 'package:rick_and_morty_client/src/core/fp/either.dart';
 import 'package:rick_and_morty_client/src/core/rest_client/rest_client.dart';
 import 'package:rick_and_morty_client/src/model/character_model.dart';
+import 'package:rick_and_morty_client/src/model/response/character_response.dart';
 import 'package:rick_and_morty_client/src/repository/character_repository.dart';
 
 class CharacterRepositoryImpl implements CharacterRepository {
@@ -14,20 +15,21 @@ class CharacterRepositoryImpl implements CharacterRepository {
   CharacterRepositoryImpl({required this.restClient});
 
   @override
-  Future<Either<RepositoryException, List<CharacterModel>>> getCharacters({
+  Future<Either<RepositoryException, CharacterResponse>> getCharacters({
     required int page,
   }) async {
     try {
-      final Response(data: {'result': characterResponse}) = await restClient
-          .unAuth
+      final response = await restClient.unAuth
           .get('${Env.backendBaseUrl}/character', queryParameters: {
         'page': page,
       });
 
-      final characterList =
+      final characterResponse = response.data['results'] as List;
+      final List<CharacterModel> characterList =
           characterResponse.map((c) => CharacterModel.fromJson(c)).toList();
 
-      return Right(characterList);
+      final next = response.data['info']['next'];
+      return Right(CharacterResponse(character: characterList, next: next));
     } on DioException catch (e, s) {
       log(
         'Erro ao buscar lista de personagens',
@@ -61,6 +63,33 @@ class CharacterRepositoryImpl implements CharacterRepository {
       return Left(
         RepositoryException(
           message: 'Erro ao buscar personagem',
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<RepositoryException, List<CharacterModel>>>
+      getMultipleCharacters({
+    required List<int> ids,
+  }) async {
+    try {
+      final Response(:data) = await restClient.unAuth.get(
+        '${Env.backendBaseUrl}/character/${ids.join(',')}',
+      );
+
+      final characterList =
+          (data as List).map((c) => CharacterModel.fromJson(c)).toList();
+      return Right(characterList);
+    } on DioException catch (e, s) {
+      log(
+        'Erro ao buscar múltiplos personagens',
+        error: e,
+        stackTrace: s,
+      );
+      return Left(
+        RepositoryException(
+          message: 'Erro ao buscar múltiplos personagens',
         ),
       );
     }
