@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:rick_and_morty_client/src/core/ui/widget/rick_and_morty_app_bar.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
+
+  void _launchURL(String url) async {
+    final uri = Uri.parse(url);
+    if (!await launchUrl(uri)) {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,24 +125,8 @@ class HomePage extends StatelessWidget {
                 '> Links',
                 style: textTheme.titleMedium,
               ),
-              Row(
-                children: [
-                  Icon(
-                    Icons.link,
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
-                  const SizedBox(
-                    width: 4,
-                  ),
-                  InkWell(
-                    child: Text(
-                      'Linkedin',
-                      style: textTheme.titleMedium!.copyWith(
-                        decoration: TextDecoration.underline,
-                      ),
-                    ),
-                  ),
-                ],
+              const SizedBox(
+                height: 8,
               ),
               Row(
                 children: [
@@ -146,8 +138,36 @@ class HomePage extends StatelessWidget {
                     width: 4,
                   ),
                   InkWell(
+                    onTap: () => _launchURL(
+                      'https://www.linkedin.com/in/devmatheushora/',
+                    ),
                     child: Text(
-                      'Github',
+                      'LinkedIn',
+                      style: textTheme.titleMedium!.copyWith(
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              Row(
+                children: [
+                  Icon(
+                    Icons.link,
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                  const SizedBox(
+                    width: 4,
+                  ),
+                  InkWell(
+                    onTap: () => _launchURL(
+                      'https://github.com/Matheus-hora48',
+                    ),
+                    child: Text(
+                      'GitHub',
                       style: textTheme.titleMedium!.copyWith(
                         decoration: TextDecoration.underline,
                       ),
