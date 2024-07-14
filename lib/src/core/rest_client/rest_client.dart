@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
+import 'package:rick_and_morty_client/src/core/interceptor/cache_interceptor.dart';
 
 class RestClient extends DioForNative {
   RestClient(String baseUrl)
@@ -9,7 +10,11 @@ class RestClient extends DioForNative {
           baseUrl: baseUrl,
         )) {
     interceptors.addAll([
-      LogInterceptor(requestBody: true, responseBody: true),
+      LogInterceptor(
+        requestBody: true,
+        responseBody: true,
+      ),
+      CacheInterceptor(),
     ]);
   }
 
