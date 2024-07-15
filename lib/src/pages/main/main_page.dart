@@ -24,6 +24,7 @@ class _MainScreenState extends State<MainScreen> {
   final controller = Injector.get<MainController>();
   int selectedTab = 0;
   List<NavModel> items = [];
+  final PageController _pageController = PageController();
 
   @override
   void initState() {
@@ -56,6 +57,7 @@ class _MainScreenState extends State<MainScreen> {
     setState(() {
       selectedTab = index;
     });
+    _pageController.jumpToPage(index);
     items[index].navKey.currentState?.popUntil((route) => route.isFirst);
   }
 
@@ -68,11 +70,11 @@ class _MainScreenState extends State<MainScreen> {
       selectedTab = index;
     });
     items[index].navKey.currentState?.push(
-          MaterialPageRoute(
-            builder: (context) => detailPage,
-            settings: RouteSettings(arguments: arguments),
-          ),
-        );
+      MaterialPageRoute(
+        builder: (context) => detailPage,
+        settings: RouteSettings(arguments: arguments),
+      ),
+    );
   }
 
   @override
@@ -86,8 +88,9 @@ class _MainScreenState extends State<MainScreen> {
         }
       },
       child: Scaffold(
-        body: IndexedStack(
-          index: selectedTab,
+        body: PageView(
+          controller: _pageController,
+          physics: const NeverScrollableScrollPhysics(),
           children: items
               .map((page) => Navigator(
                     key: page.navKey,
@@ -116,9 +119,7 @@ class _MainScreenState extends State<MainScreen> {
                     .currentState
                     ?.popUntil((route) => route.isFirst);
               } else {
-                setState(() {
-                  selectedTab = index;
-                });
+                navigateToTab(index);
               }
 
               if (index == 3) {
