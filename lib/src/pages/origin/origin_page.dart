@@ -6,7 +6,7 @@ import 'package:rick_and_morty_client/src/db/database_history_helper.dart';
 import 'package:rick_and_morty_client/src/model/navigation_history.dart';
 import 'package:rick_and_morty_client/src/model/origin_model.dart';
 import 'package:rick_and_morty_client/src/pages/character_datail/character_datail_page.dart';
-import 'package:rick_and_morty_client/src/pages/character_datail/widget/label_widget.dart';
+import 'package:rick_and_morty_client/src/core/ui/widget/label_widget.dart';
 import 'package:rick_and_morty_client/src/pages/origin/origin_controller.dart';
 
 class OriginPage extends StatefulWidget {
