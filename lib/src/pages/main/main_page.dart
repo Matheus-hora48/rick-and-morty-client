@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_getit/flutter_getit.dart';
 import 'package:rick_and_morty_client/src/pages/character/character_page.dart';
 import 'package:rick_and_morty_client/src/pages/episodes/episodes_page.dart';
 import 'package:rick_and_morty_client/src/pages/home/home_page.dart';
+import 'package:rick_and_morty_client/src/pages/main/main_controller.dart';
 import 'package:rick_and_morty_client/src/pages/navigation_history/navigation_history_page.dart';
 import 'nav_bar.dart';
 import 'nav_model.dart';
@@ -19,6 +21,7 @@ class _MainScreenState extends State<MainScreen> {
   final charactersNavKey = GlobalKey<NavigatorState>();
   final historyNavKey = GlobalKey<NavigatorState>();
   final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
+  final controller = Injector.get<MainController>();
   int selectedTab = 0;
   List<NavModel> items = [];
 
@@ -42,6 +45,7 @@ class _MainScreenState extends State<MainScreen> {
         page: NavigationHistoryPage(
           navigateToTab: navigateToTab,
           navigateToTabWithDetail: navigateToTabWithDetail,
+          controller: controller,
         ),
         navKey: historyNavKey,
       ),
@@ -115,6 +119,10 @@ class _MainScreenState extends State<MainScreen> {
                 setState(() {
                   selectedTab = index;
                 });
+              }
+
+              if (index == 3) {
+                controller.loadHistory();
               }
             },
           ),
