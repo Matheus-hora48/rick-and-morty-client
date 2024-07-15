@@ -85,6 +85,8 @@ class _OriginPageState extends State<OriginPage> {
                         ),
                       ),
                       onTap: () async {
+                        final nav = Navigator.of(context);
+
                         final history = NavigationHistoryItem(
                           screenName: 'CharacterPageDetail',
                           route: '/character/detail',
@@ -95,7 +97,7 @@ class _OriginPageState extends State<OriginPage> {
 
                         await DatabaseHistoryHelper().insertHistory(history);
 
-                        Navigator.of(context).push(
+                        nav.push(
                           MaterialPageRoute(
                             builder: (context) => const CharacterDetailPage(),
                             settings: RouteSettings(

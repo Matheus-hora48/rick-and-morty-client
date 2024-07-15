@@ -4,10 +4,14 @@ import 'package:rick_and_morty_client/src/core/ui/widget/rick_and_morty_app_bar.
 import 'package:rick_and_morty_client/src/db/database_history_helper.dart';
 import 'package:rick_and_morty_client/src/model/character_model.dart';
 import 'package:rick_and_morty_client/src/model/episode_model.dart';
+import 'package:rick_and_morty_client/src/model/location_model.dart';
 import 'package:rick_and_morty_client/src/model/navigation_history.dart';
+import 'package:rick_and_morty_client/src/model/origin_model.dart';
 import 'package:rick_and_morty_client/src/pages/episode_detail/episode_detail_page.dart';
 import 'package:rick_and_morty_client/src/pages/character_datail/character_datail_page.dart';
 import 'dart:convert';
+
+import 'package:rick_and_morty_client/src/pages/origin/origin_page.dart';
 
 class NavigationHistoryPage extends StatefulWidget {
   final Function(int) navigateToTab;
@@ -132,6 +136,26 @@ class _NavigationHistoryPageState extends State<NavigationHistoryPage> {
                         widget.navigateToTabWithDetail(
                           2,
                           const CharacterDetailPage(),
+                          character,
+                        );
+                        break;
+                      case 'OriginPage':
+                        final character = OriginModel.fromJson(
+                          arguments as Map<String, dynamic>,
+                        );
+                        widget.navigateToTabWithDetail(
+                          3,
+                          const OriginPage(),
+                          character,
+                        );
+                        break;
+                      case 'LocationPage':
+                        final character = LocationModel.fromJson(
+                          arguments as Map<String, dynamic>,
+                        );
+                        widget.navigateToTabWithDetail(
+                          4,
+                          const OriginPage(),
                           character,
                         );
                         break;

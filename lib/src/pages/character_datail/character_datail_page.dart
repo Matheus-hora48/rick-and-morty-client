@@ -94,6 +94,7 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
                   ),
                   InkWell(
                     onTap: () async {
+                      final nav = Navigator.of(context);
                       final history = NavigationHistoryItem(
                         screenName: 'OriginPage',
                         route: '/origin',
@@ -104,7 +105,7 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
 
                       await DatabaseHistoryHelper().insertHistory(history);
 
-                      Navigator.of(context).push(
+                      nav.push(
                         MaterialPageRoute(
                           builder: (context) => const OriginPage(),
                           settings: RouteSettings(
@@ -121,6 +122,8 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
                   ),
                   InkWell(
                     onTap: () async {
+                      final nav = Navigator.of(context);
+
                       final history = NavigationHistoryItem(
                         screenName: 'LocationPage',
                         route: '/location',
@@ -131,7 +134,7 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
 
                       await DatabaseHistoryHelper().insertHistory(history);
 
-                      Navigator.of(context).push(
+                      nav.push(
                         MaterialPageRoute(
                           builder: (context) => const OriginPage(),
                           settings: RouteSettings(
@@ -169,6 +172,7 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
                         style: Theme.of(context).textTheme.labelLarge,
                       ),
                       onTap: () async {
+                        final nav = Navigator.of(context);
                         final history = NavigationHistoryItem(
                           screenName: 'EpisodesPageDetail',
                           route: '/episodes/detail',
@@ -179,7 +183,7 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
 
                         await DatabaseHistoryHelper().insertHistory(history);
 
-                        Navigator.of(context).push(
+                        nav.push(
                           MaterialPageRoute(
                             builder: (context) => const EpisodeDetailPage(),
                             settings: RouteSettings(
