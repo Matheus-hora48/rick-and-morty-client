@@ -14,7 +14,7 @@ class RestClient extends DioForNative {
         requestBody: true,
         responseBody: true,
       ),
-      // CacheInterceptor(),
+      CacheInterceptor(),
     ]);
   }
 

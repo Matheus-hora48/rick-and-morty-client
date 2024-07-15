@@ -1,7 +1,9 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:rick_and_morty_client/src/db/database_cache_helper.dart';
 
-class CacheInterceptor implements InterceptorsWrapper {
+class CacheInterceptor implements Interceptor {
   final DatabaseCacheHelper _databaseCacheHelper = DatabaseCacheHelper();
   final int cacheDuration = 3600000; // 1 hora
 
@@ -16,9 +18,10 @@ class CacheInterceptor implements InterceptorsWrapper {
     if (cache != null &&
         cache['timestamp'] >
             DateTime.now().millisecondsSinceEpoch - cacheDuration) {
+      final cachedData = jsonDecode(cache['response']);
       return handler.resolve(Response(
         requestOptions: options,
-        data: cache['response'],
+        data: cachedData,
         statusCode: 200,
       ));
     }
@@ -35,9 +38,10 @@ class CacheInterceptor implements InterceptorsWrapper {
     Response response,
     ResponseInterceptorHandler handler,
   ) async {
+    final responseData = jsonEncode(response.data);
     await _databaseCacheHelper.insertCache(
       response.requestOptions.uri.toString(),
-      response.data.toString(),
+      responseData,
     );
 
     await _databaseCacheHelper.clearOldCache(cacheDuration);

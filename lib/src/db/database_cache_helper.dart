@@ -32,14 +32,14 @@ class DatabaseCacheHelper {
     );
   }
 
-  Future<void> insertCache(String url, String response) async {
+  Future<void> insertCache(String url, dynamic response) async {
     final db = await database;
     await db.insert(
       _tableName,
       {
         'url': url,
-        'response': response,
-        'timestamp': DateTime.now().millisecondsSinceEpoch
+        'response': response.toString(),
+        'timestamp': DateTime.now().millisecondsSinceEpoch,
       },
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
@@ -59,15 +59,13 @@ class DatabaseCacheHelper {
     }
   }
 
-   Future<void> clearOldCache(int cacheDuration) async {
+  Future<void> clearOldCache(int cacheDuration) async {
     final db = await database;
     final expiryTime = DateTime.now().millisecondsSinceEpoch - cacheDuration;
     await db.delete(
-      'Cache',
+      _tableName,
       where: 'timestamp < ?',
       whereArgs: [expiryTime],
     );
-
-    
   }
 }
