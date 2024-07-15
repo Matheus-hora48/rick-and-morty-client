@@ -140,7 +140,7 @@ class NavigationHistoryPage extends StatelessWidget {
                           arguments as Map<String, dynamic>,
                         );
                         navigateToTabWithDetail(
-                          4,
+                          3,
                           const OriginPage(),
                           character,
                         );

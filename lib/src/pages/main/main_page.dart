@@ -69,7 +69,8 @@ class _MainScreenState extends State<MainScreen> {
     setState(() {
       selectedTab = index;
     });
-    items[index].navKey.currentState?.push(
+    _pageController.jumpToPage(index);
+    Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => detailPage,
         settings: RouteSettings(arguments: arguments),
