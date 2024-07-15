@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_getit/flutter_getit.dart';
-import 'package:rick_and_morty_client/src/pages/main/main_page.dart';
+import 'package:rick_and_morty_client/src/pages/main/base_page.dart';
 
 class MainRoute extends FlutterGetItPageRouter {
   const MainRoute({super.key});
@@ -12,5 +12,5 @@ class MainRoute extends FlutterGetItPageRouter {
   String get routeName => '/';
 
   @override
-  WidgetBuilder get view => (_) => const MainScreen();
+  WidgetBuilder get view => (_) => const BasePage();
 }

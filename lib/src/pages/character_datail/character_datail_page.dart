@@ -99,7 +99,7 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
                         screenName: 'OriginPage',
                         route: '/origin',
                         arguments: character.origin,
-                        title: 'Origem ${character.origin.name}',
+                        title: 'Origem: ${character.origin.name}',
                         dateTime: DateTime.now().toIso8601String(),
                       );
 
@@ -128,7 +128,7 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
                         screenName: 'LocationPage',
                         route: '/location',
                         arguments: character.location,
-                        title: 'Localização ${character.location.name}',
+                        title: 'Localização: ${character.location.name}',
                         dateTime: DateTime.now().toIso8601String(),
                       );
 

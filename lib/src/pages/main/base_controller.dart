@@ -2,11 +2,11 @@ import 'package:mobx/mobx.dart';
 import 'package:rick_and_morty_client/src/db/database_history_helper.dart';
 import 'package:rick_and_morty_client/src/model/navigation_history.dart';
 
-part 'main_controller.g.dart';
+part 'base_controller.g.dart';
 
-class MainController = MainControllerBase with _$MainController;
+class BaseController = BaseControllerBase with _$BaseController;
 
-abstract class MainControllerBase with Store {
+abstract class BaseControllerBase with Store {
   final DatabaseHistoryHelper historyHelper = DatabaseHistoryHelper();
 
   @observable

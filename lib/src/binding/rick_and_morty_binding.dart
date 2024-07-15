@@ -5,7 +5,7 @@ import 'package:rick_and_morty_client/src/pages/character/character_controller.d
 import 'package:rick_and_morty_client/src/pages/character_datail/character_detail_controller.dart';
 import 'package:rick_and_morty_client/src/pages/episode_detail/episode_detail_controller.dart';
 import 'package:rick_and_morty_client/src/pages/episodes/episodes_controller.dart';
-import 'package:rick_and_morty_client/src/pages/main/main_controller.dart';
+import 'package:rick_and_morty_client/src/pages/main/base_controller.dart';
 import 'package:rick_and_morty_client/src/pages/origin/origin_controller.dart';
 import 'package:rick_and_morty_client/src/repository/character_repository.dart';
 import 'package:rick_and_morty_client/src/repository/character_repository_impl.dart';
@@ -47,6 +47,6 @@ class RickAndMortyBinding extends ApplicationBindings {
         Bind.lazySingleton(
           (i) => CharacterController(characterRepository: i()),
         ),
-        Bind.lazySingleton((i) => MainController()),
+        Bind.lazySingleton((i) => BaseController()),
       ];
 }

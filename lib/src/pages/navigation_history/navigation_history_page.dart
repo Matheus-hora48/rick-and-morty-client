@@ -5,11 +5,10 @@ import 'package:rick_and_morty_client/src/core/ui/helpers/datetime_text.dart';
 import 'package:rick_and_morty_client/src/core/ui/widget/rick_and_morty_app_bar.dart';
 import 'package:rick_and_morty_client/src/model/character_model.dart';
 import 'package:rick_and_morty_client/src/model/episode_model.dart';
-import 'package:rick_and_morty_client/src/model/location_model.dart';
 import 'package:rick_and_morty_client/src/model/origin_model.dart';
 import 'package:rick_and_morty_client/src/pages/episode_detail/episode_detail_page.dart';
 import 'package:rick_and_morty_client/src/pages/character_datail/character_datail_page.dart';
-import 'package:rick_and_morty_client/src/pages/main/main_controller.dart';
+import 'package:rick_and_morty_client/src/pages/main/base_controller.dart';
 import 'dart:convert';
 
 import 'package:rick_and_morty_client/src/pages/origin/origin_page.dart';
@@ -17,7 +16,7 @@ import 'package:rick_and_morty_client/src/pages/origin/origin_page.dart';
 class NavigationHistoryPage extends StatelessWidget {
   final Function(int) navigateToTab;
   final Function(int, Widget, dynamic) navigateToTabWithDetail;
-  final MainController controller;
+  final BaseController controller;
 
   const NavigationHistoryPage({
     super.key,
@@ -136,11 +135,11 @@ class NavigationHistoryPage extends StatelessWidget {
                         );
                         break;
                       case 'LocationPage':
-                        final character = LocationModel.fromJson(
+                        final character = OriginModel.fromJson(
                           arguments as Map<String, dynamic>,
                         );
                         navigateToTabWithDetail(
-                          3,
+                          2,
                           const OriginPage(),
                           character,
                         );

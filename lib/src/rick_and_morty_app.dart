@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_getit/flutter_getit.dart';
 import 'package:rick_and_morty_client/src/binding/rick_and_morty_binding.dart';
 import 'package:rick_and_morty_client/src/core/ui/theme/rick_and_morty_theme.dart';
-import 'package:rick_and_morty_client/src/pages/main/main_page.dart';
+import 'package:rick_and_morty_client/src/pages/main/base_page.dart';
 import 'package:rick_and_morty_client/src/pages/splash_page/splash_page.dart';
 
 class RickAndMortyApp extends StatelessWidget {
@@ -19,7 +19,7 @@ class RickAndMortyApp extends StatelessWidget {
           path: '/',
         ),
         FlutterGetItPageBuilder(
-          page: (_) => const MainScreen(),
+          page: (_) => const BasePage(),
           path: '/home',
         ),
       ],
