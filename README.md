@@ -1,16 +1,46 @@
-# rick_and_morty_client
+# Rick and Morty Client App
 
-A new Flutter project.
+Este é um aplicativo Flutter que consome a API de Rick and Morty para exibir informações sobre personagens, episódios e locais do famoso show de TV.
 
-## Getting Started
+## Funcionalidades
 
-This project is a starting point for a Flutter application.
+- Listagem de personagens com informações detalhadas
+- Listagem de episódios e locais
+- Detalhes dos episódios e locais
 
-A few resources to get you started if this is your first Flutter project:
+## Pré-requisitos
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Certifique-se de ter o Flutter instalado na sua máquina. Você pode seguir as instruções oficiais de instalação no site do [Flutter](https://flutter.dev/docs/get-started/install).
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Como rodar o projeto
+
+1. Clone o repositório:
+
+   ```sh
+   git clone https://github.com/Matheus-hora48/rick-and-morty-client.git
+   cd rick-and-morty-client
+
+2. Instale as dependências:
+
+   ```sh
+   flutter pub get
+
+3. Gere os arquivos necessários com o build_runner:
+
+   ```sh
+   flutter pub run build_runner watch
+
+4. Execute o aplicativo:
+
+   ```sh
+   flutter run
+
+## Contato
+
+Nome: Matheus Hora
+
+Email: matheus16hora@gmail.com
+
+Linkedin: [https://www.linkedin.com/in/devmatheushora/](https://www.linkedin.com/in/devmatheushora/)
+
+
