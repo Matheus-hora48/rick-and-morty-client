@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rick_and_morty_client/src/pages/character/character_page.dart';
 import 'package:rick_and_morty_client/src/pages/episodes/episodes_page.dart';
 import 'package:rick_and_morty_client/src/pages/home/home_page.dart';
+import 'package:rick_and_morty_client/src/pages/navigation_history/navigation_history_page.dart';
 import 'nav_bar.dart';
 import 'nav_model.dart';
 
@@ -17,6 +18,7 @@ class _MainScreenState extends State<MainScreen> {
   final episodesNavKey = GlobalKey<NavigatorState>();
   final charactersNavKey = GlobalKey<NavigatorState>();
   final historyNavKey = GlobalKey<NavigatorState>();
+  final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
   int selectedTab = 0;
   List<NavModel> items = [];
 
@@ -37,10 +39,36 @@ class _MainScreenState extends State<MainScreen> {
         navKey: charactersNavKey,
       ),
       NavModel(
-        page: const HomePage(),
+        page: NavigationHistoryPage(
+          navigateToTab: navigateToTab,
+          navigateToTabWithDetail: navigateToTabWithDetail,
+        ),
         navKey: historyNavKey,
       ),
     ];
+  }
+
+  void navigateToTab(int index) {
+    setState(() {
+      selectedTab = index;
+    });
+    items[index].navKey.currentState?.popUntil((route) => route.isFirst);
+  }
+
+  void navigateToTabWithDetail(
+    int index,
+    Widget detailPage,
+    dynamic arguments,
+  ) {
+    setState(() {
+      selectedTab = index;
+    });
+    items[index].navKey.currentState?.push(
+          MaterialPageRoute(
+            builder: (context) => detailPage,
+            settings: RouteSettings(arguments: arguments),
+          ),
+        );
   }
 
   @override

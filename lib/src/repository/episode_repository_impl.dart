@@ -19,10 +19,12 @@ class EpisodeRepositoryImpl implements EpisodeRepository {
     required int page,
   }) async {
     try {
-      final response = await restClient.unAuth
-          .get('${Env.backendBaseUrl}/episode', queryParameters: {
-        'page': page,
-      });
+      final response = await restClient.unAuth.get(
+        '${Env.backendBaseUrl}/episode',
+        queryParameters: {
+          'page': page,
+        },
+      );
 
       final episodeResponse = response.data['results'] as List;
       final List<EpisodeModel> episodeList =

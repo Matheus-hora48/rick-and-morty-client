@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_getit/flutter_getit.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:rick_and_morty_client/src/core/ui/widget/rick_and_morty_app_bar.dart';
+import 'package:rick_and_morty_client/src/db/database_history_helper.dart';
+import 'package:rick_and_morty_client/src/model/navigation_history.dart';
 import 'package:rick_and_morty_client/src/pages/episode_detail/episode_detail_page.dart';
 import 'package:rick_and_morty_client/src/pages/episodes/episodes_controller.dart';
 
@@ -28,12 +30,25 @@ class _EpisodesPageState extends State<EpisodesPage> {
         controller.fetchEpisodes(page: controller.currentPage + 1);
       }
     });
+
+    _saveHistory();
   }
 
   @override
   void dispose() {
     _scrollController.dispose();
     super.dispose();
+  }
+
+  Future<void> _saveHistory() async {
+    final history = NavigationHistoryItem(
+      screenName: 'EpisodesPage',
+      route: '/episodes',
+      arguments: null,
+      title: 'Página episódios',
+      dateTime: DateTime.now().toIso8601String(),
+    );
+    await DatabaseHistoryHelper().insertHistory(history);
   }
 
   @override
@@ -105,7 +120,15 @@ class _EpisodesPageState extends State<EpisodesPage> {
                     ),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  onTap: () {
+                  onTap: () async {
+                    final history = NavigationHistoryItem(
+                      screenName: 'EpisodesPageDetail',
+                      route: '/episodes/detail',
+                      arguments: episode,
+                      title: 'Episódio: ${episode.name}',
+                      dateTime: DateTime.now().toIso8601String(),
+                    );
+
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => const EpisodeDetailPage(),
@@ -114,6 +137,8 @@ class _EpisodesPageState extends State<EpisodesPage> {
                         ),
                       ),
                     );
+
+                    await DatabaseHistoryHelper().insertHistory(history);
                   },
                 );
               },

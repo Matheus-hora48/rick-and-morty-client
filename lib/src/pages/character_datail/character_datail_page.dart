@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_getit/flutter_getit.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:rick_and_morty_client/src/core/ui/widget/rick_and_morty_app_bar.dart';
+import 'package:rick_and_morty_client/src/db/database_history_helper.dart';
 import 'package:rick_and_morty_client/src/model/character_model.dart';
+import 'package:rick_and_morty_client/src/model/navigation_history.dart';
 import 'package:rick_and_morty_client/src/pages/character_datail/character_detail_controller.dart';
 import 'package:rick_and_morty_client/src/pages/character_datail/widget/label_widget.dart';
 import 'package:rick_and_morty_client/src/pages/episode_detail/episode_detail_page.dart';
@@ -11,6 +13,7 @@ import 'package:rick_and_morty_client/src/pages/origin/origin_page.dart';
 class CharacterDetailPage extends StatefulWidget {
   const CharacterDetailPage({
     super.key,
+    required,
   });
 
   @override
@@ -90,7 +93,17 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
                     ],
                   ),
                   InkWell(
-                    onTap: () {
+                    onTap: () async {
+                      final history = NavigationHistoryItem(
+                        screenName: 'OriginPage',
+                        route: '/origin',
+                        arguments: character.origin,
+                        title: 'Origem ${character.origin.name}',
+                        dateTime: DateTime.now().toIso8601String(),
+                      );
+
+                      await DatabaseHistoryHelper().insertHistory(history);
+
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => const OriginPage(),
@@ -107,7 +120,17 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
                     ),
                   ),
                   InkWell(
-                    onTap: () {
+                    onTap: () async {
+                      final history = NavigationHistoryItem(
+                        screenName: 'LocationPage',
+                        route: '/location',
+                        arguments: character.location,
+                        title: 'Localização ${character.location.name}',
+                        dateTime: DateTime.now().toIso8601String(),
+                      );
+
+                      await DatabaseHistoryHelper().insertHistory(history);
+
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => const OriginPage(),
@@ -145,7 +168,17 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
                         episode.episode,
                         style: Theme.of(context).textTheme.labelLarge,
                       ),
-                      onTap: () {
+                      onTap: () async {
+                        final history = NavigationHistoryItem(
+                          screenName: 'EpisodesPageDetail',
+                          route: '/episodes/detail',
+                          arguments: episode,
+                          title: 'Episódio: ${episode.name}',
+                          dateTime: DateTime.now().toIso8601String(),
+                        );
+
+                        await DatabaseHistoryHelper().insertHistory(history);
+
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => const EpisodeDetailPage(),

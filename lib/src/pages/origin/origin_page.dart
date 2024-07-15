@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_getit/flutter_getit.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:rick_and_morty_client/src/core/ui/widget/rick_and_morty_app_bar.dart';
+import 'package:rick_and_morty_client/src/db/database_history_helper.dart';
+import 'package:rick_and_morty_client/src/model/navigation_history.dart';
 import 'package:rick_and_morty_client/src/model/origin_model.dart';
 import 'package:rick_and_morty_client/src/pages/character_datail/character_datail_page.dart';
 import 'package:rick_and_morty_client/src/pages/character_datail/widget/label_widget.dart';
@@ -82,7 +84,17 @@ class _OriginPageState extends State<OriginPage> {
                           color: Theme.of(context).colorScheme.secondary,
                         ),
                       ),
-                      onTap: () {
+                      onTap: () async {
+                        final history = NavigationHistoryItem(
+                          screenName: 'CharacterPageDetail',
+                          route: '/character/detail',
+                          arguments: character,
+                          title: 'Personagem: ${character.name}',
+                          dateTime: DateTime.now().toIso8601String(),
+                        );
+
+                        await DatabaseHistoryHelper().insertHistory(history);
+
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => const CharacterDetailPage(),

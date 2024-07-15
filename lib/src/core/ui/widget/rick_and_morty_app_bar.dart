@@ -4,11 +4,13 @@ class RickAndMortyAppBar extends StatelessWidget
     implements PreferredSizeWidget {
   final String title;
   final BuildContext context;
+  final Widget? action;
 
   const RickAndMortyAppBar({
     super.key,
     required this.title,
     required this.context,
+    this.action,
   });
 
   @override
@@ -43,6 +45,7 @@ class RickAndMortyAppBar extends StatelessWidget
               },
             )
           : Image.asset('assets/imgs/icon_header.png'),
+      actions: action != null ? [action!] : [],
     );
   }
 

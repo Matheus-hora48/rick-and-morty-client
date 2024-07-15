@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_getit/flutter_getit.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:rick_and_morty_client/src/core/ui/widget/rick_and_morty_app_bar.dart';
+import 'package:rick_and_morty_client/src/db/database_history_helper.dart';
+import 'package:rick_and_morty_client/src/model/navigation_history.dart';
 import 'package:rick_and_morty_client/src/pages/character/character_controller.dart';
 import 'package:rick_and_morty_client/src/pages/character_datail/character_datail_page.dart';
 
@@ -28,12 +30,25 @@ class _CharacterPageState extends State<CharacterPage> {
         controller.fetchEpisodes(page: controller.currentPage + 1);
       }
     });
+
+    _saveHistory();
   }
 
   @override
   void dispose() {
     _scrollController.dispose();
     super.dispose();
+  }
+
+  Future<void> _saveHistory() async {
+    final history = NavigationHistoryItem(
+      screenName: 'CharacterPage',
+      route: '/character',
+      arguments: null,
+      title: 'Página personagem',
+      dateTime: DateTime.now().toIso8601String(),
+    );
+    await DatabaseHistoryHelper().insertHistory(history);
   }
 
   @override
@@ -110,7 +125,17 @@ class _CharacterPageState extends State<CharacterPage> {
                     ),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  onTap: () {
+                  onTap: () async {
+                    final history = NavigationHistoryItem(
+                      screenName: 'CharacterPageDetail',
+                      route: '/character/detail',
+                      arguments: character,
+                      title: 'Episódio: ${character.name}',
+                      dateTime: DateTime.now().toIso8601String(),
+                    );
+
+                    await DatabaseHistoryHelper().insertHistory(history);
+
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => const CharacterDetailPage(),
